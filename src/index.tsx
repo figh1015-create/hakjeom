@@ -5,7 +5,8 @@ const app = new Hono()
 
 // Static files
 app.use('/static/*', serveStatic({ root: './public' }))
-app.use('/favicon.ico', serveStatic({ root: './public', path: './public/favicon.ico' }))
+// Favicon - return 204 to avoid 500 errors
+app.get('/favicon.ico', (c) => c.body(null, 204))
 
 // ─── Main Page ───────────────────────────────────────────
 app.get('/', (c) => {
