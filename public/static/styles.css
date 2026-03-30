@@ -1,0 +1,294 @@
+/* ─── Global Styles ─────────────────────────────────── */
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Navigation ─────────────────────────────────────── */
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.875rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  transition: all 0.15s;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.nav-link:hover { background-color: #EFF6FF; color: #2563EB; }
+.nav-active { background-color: #EFF6FF; color: #2563EB; font-weight: 600; }
+
+.mobile-nav-link {
+  display: block;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  transition: background-color 0.15s;
+  text-decoration: none;
+}
+.mobile-nav-link:hover { background-color: #F3F4F6; }
+
+/* ─── Hero Section ───────────────────────────────────── */
+.hero-gradient {
+  background: linear-gradient(135deg, #1E40AF 0%, #2563EB 50%, #3B82F6 100%);
+}
+
+.btn-hero-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: #2563EB;
+  font-weight: 700;
+  padding: 1rem 2rem;
+  border-radius: 0.875rem;
+  font-size: 1rem;
+  transition: all 0.2s;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.btn-hero-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+
+.btn-hero-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255,255,255,0.15);
+  color: white;
+  font-weight: 600;
+  padding: 1rem 2rem;
+  border-radius: 0.875rem;
+  font-size: 1rem;
+  border: 2px solid rgba(255,255,255,0.3);
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.btn-hero-secondary:hover { background-color: rgba(255,255,255,0.25); transform: translateY(-2px); }
+
+/* ─── Buttons ─────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2563EB;
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  transition: all 0.15s;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9375rem;
+}
+.btn-primary:hover { background-color: #1D4ED8; transform: translateY(-1px); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F3F4F6;
+  color: #374151;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  transition: all 0.15s;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+.btn-secondary:hover { background-color: #E5E7EB; }
+
+/* ─── Cards ──────────────────────────────────────────── */
+.stat-card {
+  padding: 1.5rem 1rem;
+  transition: transform 0.2s;
+}
+.stat-card:hover { transform: translateY(-3px); }
+
+.feature-card {
+  background: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: all 0.2s;
+}
+.feature-card:hover {
+  border-color: #93C5FD;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.1);
+  transform: translateY(-2px);
+}
+
+.feature-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+/* ─── Form Elements ──────────────────────────────────── */
+.label-text {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #E5E7EB;
+  border-radius: 0.75rem;
+  font-size: 0.9375rem;
+  transition: border-color 0.15s;
+  outline: none;
+  background: white;
+}
+.input-field:focus { border-color: #2563EB; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+
+.select-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #E5E7EB;
+  border-radius: 0.75rem;
+  font-size: 0.9375rem;
+  transition: border-color 0.15s;
+  outline: none;
+  background: white;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.25rem;
+  padding-right: 2.5rem;
+}
+.select-field:focus { border-color: #2563EB; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+
+/* ─── Simulator Steps ────────────────────────────────── */
+.step-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.75rem;
+  color: #9CA3AF;
+  flex: 1;
+}
+
+.step-circle {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.875rem;
+  border: 2px solid #E5E7EB;
+  color: #9CA3AF;
+  background: white;
+  transition: all 0.3s;
+  margin-bottom: 0.25rem;
+}
+
+.step-circle.active {
+  border-color: #2563EB;
+  background: #2563EB;
+  color: white;
+}
+
+.step-circle.completed {
+  border-color: #10B981;
+  background: #10B981;
+  color: white;
+}
+
+/* ─── Option Cards (Simulator) ───────────────────────── */
+.option-selected {
+  border-color: #2563EB !important;
+  background-color: #EFF6FF !important;
+}
+
+/* ─── Certificate Cards ──────────────────────────────── */
+.cert-selected {
+  border-color: #2563EB !important;
+  background-color: #EFF6FF !important;
+}
+
+.cert-check-active {
+  background-color: #2563EB;
+  border-color: #2563EB;
+}
+.cert-check-active::after {
+  content: '✓';
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* ─── Toggle Switch ───────────────────────────────────── */
+.toggle-switch {
+  width: 3rem;
+  height: 1.5rem;
+  background-color: #E5E7EB;
+  border-radius: 9999px;
+  padding: 0.125rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  flex-shrink: 0;
+}
+
+.toggle-switch.active { background-color: #2563EB; }
+
+.toggle-knob {
+  width: 1.25rem;
+  height: 1.25rem;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: transform 0.3s;
+}
+
+.toggle-switch.active .toggle-knob { transform: translateX(1.5rem); }
+
+/* ─── Cost Calculator ────────────────────────────────── */
+.inst-type-selected {
+  border-color: #2563EB !important;
+  background-color: #EFF6FF !important;
+}
+
+/* ─── FAQ ────────────────────────────────────────────── */
+.faq-answer { transition: max-height 0.3s ease; }
+
+/* ─── Progress Bar Anim ──────────────────────────────── */
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 640px) {
+  .hero-gradient { padding: 3rem 1rem; }
+}
+
+/* ─── Scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #F3F4F6; }
+::-webkit-scrollbar-thumb { background: #9CA3AF; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #6B7280; }
+
+/* ─── Print ──────────────────────────────────────────── */
+@media print {
+  header, footer, button, .btn-primary, .btn-secondary { display: none !important; }
+  body { background: white; }
+}

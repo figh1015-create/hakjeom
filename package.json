@@ -1,0 +1,23 @@
+{
+  "name": "hakjeom-seolgyeso",
+  "version": "1.0.0",
+  "description": "학점설계소 - 학점은행제 올인원 학습설계 플랫폼",
+  "scripts": {
+    "dev": "vite",
+    "dev:sandbox": "wrangler pages dev dist --ip 0.0.0.0 --port 3000",
+    "build": "vite build",
+    "preview": "wrangler pages dev dist",
+    "deploy": "npm run build && wrangler pages deploy dist"
+  },
+  "dependencies": {
+    "hono": "^4.0.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "4.20250705.0",
+    "@hono/vite-cloudflare-pages": "^0.4.2",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0",
+    "wrangler": "^3.78.0"
+  },
+  "type": "module"
+}

@@ -1,0 +1,25 @@
+node_modules/
+dist/
+.wrangler/
+.dev.vars
+*.env
+.env.local
+.env.production
+
+# PM2
+pids/
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Backup
+*.backup
+*.bak
+*.tar.gz
