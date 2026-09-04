@@ -1,1 +1,1 @@
-{"version":1,"include":["/*"],"exclude":["/","/course/*"]}
+{"version":1,"include":["/*"],"exclude":["/","/course/*","/static/*","/favicon.ico"]}

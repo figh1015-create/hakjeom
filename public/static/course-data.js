@@ -25,7 +25,30 @@ const courses={
 'practicum.html':{name:'실습·대면 과정',emoji:'📍',sub:'사회복지·보육 등 실습과 대면과목 진행 지원',desc:'사회복지실습, 보육 관련 실습·대면 등 지역과 일정이 중요한 과목을 실제 운영 가능 여부와 함께 확인합니다.',targets:['사회복지 현장실습이 필요한 분','보육 대면·실습과목이 필요한 분','하남 등 특정 지역 실습을 찾는 분','실습 선이수과목 확인이 필요한 분'],topics:['실습 가능 지역·일정','대면수업 운영 여부','선이수과목 확인','출석·기관·서류 요건'],point:'실습과 대면과목은 지역·개강일·선이수 조건에 따라 가능 여부가 달라지므로 일반 이론과목보다 먼저 일정 확인이 필요합니다.'},
 'private-certificates.html':{name:'민간자격증',emoji:'🏅',sub:'운영 가능한 민간자격 과정 60종 안내',desc:'현재 연계 가능한 민간자격 과정 가운데 관심 분야와 활용 목적에 맞는 과정을 비교해 안내합니다.',targets:['취업·이직용 추가 역량이 필요한 분','전공과 함께 자격과정을 병행하고 싶은 분','짧은 과정부터 비교해보고 싶은 분','관심 분야에 맞는 자격을 찾는 분'],topics:['운영 자격과정 확인','발급기관·등록정보 확인','수강·시험 방식','활용 목적에 따른 과정 선택'],point:'민간자격은 국가자격과 효력이 다르므로 자격명과 발급기관, 등록 여부, 실제 활용처를 확인하고 선택해야 합니다.'}
 };
-const key=location.pathname.split('/').pop()||'';const c=courses[key]||courses['business.html'];
+const pathKey=location.pathname.split('/').pop()||'';const key=pathKey.endsWith('.html')?pathKey:`${pathKey}.html`;const c=courses[key]||courses['business.html'];
 document.title=`${c.name} | 학점설계소`;
 document.querySelectorAll('[data-name]').forEach(x=>x.textContent=c.name);document.querySelector('[data-emoji]').textContent=c.emoji;document.querySelector('[data-sub]').textContent=c.sub;document.querySelector('[data-desc]').textContent=c.desc;document.querySelector('[data-point]').textContent=c.point;
 document.querySelector('[data-targets]').innerHTML=c.targets.map(v=>`<div class="check">✓ ${v}</div>`).join('');document.querySelector('[data-topics]').innerHTML=c.topics.map(v=>`<li>${v}</li>`).join('');
+
+const description=document.querySelector('meta[name="description"]');
+if(description)description.setAttribute('content',`${c.name} 과정 안내와 1:1 전담 담당자 배정, 체계적인 학습관리, 평일·주말 빠른 문제 대응`);
+
+const overview=document.querySelector('#overview');
+if(overview){
+  overview.insertAdjacentHTML('beforebegin',`
+    <section class="section care-highlight" aria-labelledby="care-title">
+      <div class="wrap">
+        <div class="title">
+          <span class="kicker">수강 시작부터 목표 달성까지</span>
+          <h2 id="care-title">${c.name} 과정도 1:1 전담 관리로 함께합니다</h2>
+          <p>과정만 안내하고 끝내지 않습니다. 처음 배정된 담당자가 학습 일정과 진행 상황을 꾸준히 확인합니다.</p>
+        </div>
+        <div class="steps">
+          <div class="step"><b>1</b><h3>1:1 전담 담당자 배정</h3><p class="muted">학력, 보유학점과 목표를 파악한 한 명의 담당자가 과정 전반을 일관되게 안내합니다.</p></div>
+          <div class="step"><b>2</b><h3>체계적인 학습관리</h3><p class="muted">출석·과제·시험·행정신청과 과정별 필수 일정을 놓치지 않도록 단계별로 확인합니다.</p></div>
+          <div class="step"><b>3</b><h3>평일·주말 빠른 대응</h3><p class="muted">진행 중 궁금한 점이나 문제가 생기면 요일에 상관없이 확인하고 해결 방향을 빠르게 안내합니다.</p></div>
+          <div class="step"><b>4</b><h3>문제 해결까지 동행</h3><p class="muted">과목, 일정, 실습 등 예상치 못한 상황에도 다음 행동이 명확해질 때까지 함께 점검합니다.</p></div>
+        </div>
+      </div>
+    </section>`);
+}
