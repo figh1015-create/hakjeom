@@ -25,29 +25,102 @@ const courses={
 'practicum.html':{name:'실습·대면 과정',emoji:'📍',sub:'사회복지·보육 등 실습과 대면과목 진행 지원',desc:'사회복지실습, 보육 관련 실습·대면 등 지역과 일정이 중요한 과목을 실제 운영 가능 여부와 함께 확인합니다.',targets:['사회복지 현장실습이 필요한 분','보육 대면·실습과목이 필요한 분','하남 등 특정 지역 실습을 찾는 분','실습 선이수과목 확인이 필요한 분'],topics:['실습 가능 지역·일정','대면수업 운영 여부','선이수과목 확인','출석·기관·서류 요건'],point:'실습과 대면과목은 지역·개강일·선이수 조건에 따라 가능 여부가 달라지므로 일반 이론과목보다 먼저 일정 확인이 필요합니다.'},
 'private-certificates.html':{name:'민간자격증',emoji:'🏅',sub:'운영 가능한 민간자격 과정 60종 안내',desc:'현재 연계 가능한 민간자격 과정 가운데 관심 분야와 활용 목적에 맞는 과정을 비교해 안내합니다.',targets:['취업·이직용 추가 역량이 필요한 분','전공과 함께 자격과정을 병행하고 싶은 분','짧은 과정부터 비교해보고 싶은 분','관심 분야에 맞는 자격을 찾는 분'],topics:['운영 자격과정 확인','발급기관·등록정보 확인','수강·시험 방식','활용 목적에 따른 과정 선택'],point:'민간자격은 국가자격과 효력이 다르므로 자격명과 발급기관, 등록 여부, 실제 활용처를 확인하고 선택해야 합니다.'}
 };
-const pathKey=location.pathname.split('/').pop()||'';const key=pathKey.endsWith('.html')?pathKey:`${pathKey}.html`;const c=courses[key]||courses['business.html'];
+
+const courseValue={
+  'business.html':{group:'business',why:'경영학은 학위 취득뿐 아니라 편입·대학원·일부 자격 응시요건까지 활용 범위가 넓어, 아직 진로가 하나로 정해지지 않은 성인 학습자에게 선택지가 많은 전공입니다.',benefits:['직장과 병행하기 좋은 온라인 과목 활용','다양한 산업에서 이해하기 쉬운 범용 전공','전적대·자격증을 조합한 기간 단축 설계'],outcomes:['경영학 학사학위 요건 충족','편입·대학원 지원을 위한 학력 기반 마련','목표 자격의 응시요건 검토 및 준비']},
+  'social-welfare.html':{group:'care',why:'사회복지학은 사람과 지역사회를 이해하는 전공으로, 복지 분야 진입과 학위 취득을 함께 준비하기 좋습니다. 자격 과정과 학위 요건을 따로 놓치지 않는 설계가 특히 중요합니다.',benefits:['복지 현장과 연결되는 전공 지식','사회복지사 과정과 학위의 병행 검토','연령과 경력을 폭넓게 활용할 수 있는 진로 기반'],outcomes:['사회복지학 학위 요건 충족','복지기관·공공복지 분야 진로 탐색','별도 자격요건에 맞춘 과목·실습 준비']},
+  'social-worker.html':{group:'care',why:'사회복지사 2급은 복지 분야 취업과 이직을 준비할 때 널리 검토되는 자격입니다. 필수·선택과목과 현장실습이 함께 있어 시작 전 전체 순서를 잡는 것이 핵심입니다.',benefits:['법정 교과목과 실습을 한 흐름으로 관리','기존 이수과목을 확인해 중복수강 예방','실습 선이수·지역·일정까지 사전 점검'],outcomes:['자격 신청에 필요한 교과목 이수 준비','사회복지현장실습 요건 충족 지원','학력에 따른 추가 학위과정 병행 검토']},
+  'childhood.html':{group:'care',why:'아동학은 아동의 발달과 교육, 가족 환경을 폭넓게 다루며 보육·아동복지·교육 관련 진로의 학문적 기반을 만들 수 있는 전공입니다.',benefits:['아동·가족·교육을 연결해 이해','보육 관련 목표와 학위과정 동시 검토','기존 관련 과목을 전공학점으로 활용 가능'],outcomes:['아동학 학위 요건 충족','아동·보육 분야 진학 기반 마련','관련 자격 목표에 필요한 추가요건 확인']},
+  'childcare.html':{group:'care',why:'보육 과정은 이론과목만으로 끝나지 않고 대면수업과 실습 여부가 중요합니다. 지역과 일정까지 포함해 처음부터 가능한 순서로 설계해야 시행착오를 줄일 수 있습니다.',benefits:['대면·실습 일정을 먼저 반영한 계획','기존 이수과목으로 중복과 누락 확인','학위와 보육 관련 요건을 함께 점검'],outcomes:['목표에 필요한 보육 교과목 이수 준비','보육실습·대면과목 일정 관리','아동학 학위 연계 가능성 검토']},
+  'psychology.html':{group:'psychology',why:'심리학은 사람의 행동과 마음을 과학적으로 이해하는 전공으로, 상담·교육·조직 분야 진로와 편입·대학원 준비에 폭넓게 활용할 수 있습니다.',benefits:['발달·상담·이상·인지 영역의 체계적 학습','비전공자의 심리학 학위 취득 경로','진학 목표에 맞춘 선수과목 사전 점검'],outcomes:['심리학 학사학위 요건 충족','상담·심리계열 대학원 진학 기반 마련','목표 자격별 별도요건 확인']},
+  'counseling.html':{group:'psychology',why:'상담학은 사람을 돕는 대화와 이론을 배우는 과정입니다. 희망 대학원이나 자격마다 요구과목이 달라 최종 목표를 먼저 정하고 필요한 과목을 골라야 합니다.',benefits:['상담이론과 인간이해의 균형 있는 학습','진학 목표별 선수과목 구성','심리학 관련 과목과의 효율적인 연계'],outcomes:['상담 분야 학위·진학 준비','상담 실무를 이해하는 이론 기반 형성','대학원·자격별 추가요건 비교']},
+  'theology.html':{group:'business',why:'신학 과정은 교회·신학 분야의 학위와 진학 목표를 학점은행제로 이어갈 수 있는 경로입니다. 실제 개설 전공과목을 기준으로 학점 구성을 확인해야 합니다.',benefits:['기존 신학 과목과 전적대 학점 활용','진학 목표에 맞춘 전공학점 구성','직장·사역과 병행 가능한 학습계획'],outcomes:['신학 관련 학위요건 충족','신학대학원 등 진학 기반 마련','기존 학습경력의 학점 활용 검토']},
+  'english-literature.html':{group:'business',why:'영어영문학은 영어 능력에 전공 학위를 더하고 편입·진학을 준비할 수 있는 과정입니다. 지원 목표의 전공 인정 범위와 선수과목을 함께 확인하는 것이 좋습니다.',benefits:['영어학과 영문학의 균형 있는 전공 구성','기존 영어 과목의 학점 활용 검토','편입·대학원 일정에 맞춘 학위 설계'],outcomes:['영어영문학 학위요건 충족','영어계열 편입·진학 기반 마련','전공 변경 또는 복수 학위 준비']},
+  'korean.html':{group:'business',why:'한국어 과정은 한국어 교육·언어 분야의 학위, 진학 또는 관련 자격 목표에 따라 필요한 과목 구성이 크게 달라지는 과정입니다.',benefits:['목표 명칭에 맞춘 과목 구분','기존 국어·언어 과목 활용 가능성 확인','자격과 학위요건을 분리해 누락 예방'],outcomes:['한국어 관련 학습과정 이수','학위·진학 목표의 기반 마련','관련 자격별 별도 요건 확인']},
+  'youth.html':{group:'care',why:'청소년학은 청소년 발달, 활동, 복지와 상담을 함께 이해해 청소년 관련 기관과 교육·복지 분야 진로를 준비하는 데 도움이 됩니다.',benefits:['청소년 발달과 현장 이슈를 함께 학습','복지·상담 과목과 연계 가능한 구성','관련 자격의 필수과목 사전 확인'],outcomes:['청소년학 학위요건 충족','청소년 관련 진로·진학 기반 마련','목표 자격별 이수과목 준비']},
+  'computer-science.html':{group:'technology',why:'컴퓨터공학은 개발·데이터·보안 등 빠르게 변하는 IT 분야에서 전공 학력을 보완하고 편입·대학원·자격 목표를 준비하는 데 활용도가 높은 전공입니다.',benefits:['비전공자의 IT 전공 학위 경로','관련 국가기술자격 학점 활용 검토','핵심 이론과목을 빠짐없이 구성'],outcomes:['컴퓨터공학 학사학위 요건 충족','IT계열 편입·대학원 지원 기반 마련','기사 등 목표 자격 응시요건 준비']},
+  'information-processing.html':{group:'technology',why:'정보처리학은 데이터와 시스템, 정보기술의 기초를 전공학점으로 쌓는 과정입니다. 유사한 컴퓨터공학과 인정과목 차이를 먼저 구분해야 합니다.',benefits:['목표 전공명에 맞춘 정확한 과목 선택','정보처리 관련 자격의 학점 활용 검토','전적대 IT 과목의 인정 가능성 확인'],outcomes:['정보처리 관련 학위요건 충족','IT 분야 학력 보완','자격·진학 목표에 필요한 전공학점 확보']},
+  'library-science.html':{group:'business',why:'문헌정보학은 도서관과 정보조직·서비스를 다루는 전문 전공입니다. 실제 개설과목이 제한될 수 있어 시작 전 운영 가능 여부를 확인하는 것이 중요합니다.',benefits:['정보조직과 정보서비스의 전공 기반','희소 전공의 실제 개설과목 우선 확인','진학·채용 목표별 추가요건 점검'],outcomes:['문헌정보 분야 학위 준비','도서관·정보관리 진로 기반 마련','관련 대학원 진학요건 검토']},
+  'electrical-engineering.html':{group:'technology',why:'전기공학은 전공 학위와 기사·산업기사 응시자격을 함께 검토하는 경우가 많습니다. 학위요건과 자격 응시요건을 구분해 설계해야 합니다.',benefits:['전기 핵심 전공과목의 체계적 구성','관련 국가기술자격 학점 활용 검토','학위와 응시자격 목표를 동시에 점검'],outcomes:['전기공학 학위요건 충족','전기 분야 자격 응시요건 준비','편입·진학을 위한 전공학력 보완']},
+  'electronic-engineering.html':{group:'technology',why:'전자공학은 회로·디지털·통신·반도체 분야의 전공 기반을 만들 수 있습니다. 전기공학과 유사 과목이 있어도 인정 구분이 달라 세밀한 확인이 필요합니다.',benefits:['전자 분야 핵심과목 중심의 구성','관련 자격과 전공학점 연계 검토','유사 전공 간 인정과목 혼선 예방'],outcomes:['전자공학 학위요건 충족','전자·반도체 분야 진학 기반 마련','목표 자격 응시요건 준비']},
+  'fire-safety.html':{group:'technology',why:'소방학은 재난·안전과 소방 분야의 전공 학력을 준비하는 과정입니다. 채용이나 자격 목표가 있다면 별도 기준을 학위과정과 함께 확인해야 합니다.',benefits:['소방·재난·안전 관련 전공학점 구성','경력과 자격의 학점 활용 가능성 검토','채용·자격 목표별 별도요건 점검'],outcomes:['소방학 관련 학위 준비','소방·안전 분야 진로 기반 마련','관련 자격 응시요건 검토']},
+  'police-administration.html':{group:'technology',why:'경찰행정학은 경찰학·행정·법의 기초를 함께 배우며 경찰·공공 분야 학위와 편입·진학 목표를 준비하는 전공입니다.',benefits:['경찰학과 행정·법 과목의 연계 학습','기존 법·행정 과목의 학점 활용 검토','채용과 학위요건을 구분해 설계'],outcomes:['경찰행정 관련 학위 준비','공공 분야 편입·진학 기반 마련','목표 채용·자격의 별도요건 확인']},
+  'physical-education.html':{group:'practical',why:'체육학은 스포츠 현장 경험에 학사학위를 더하거나 편입·대학원·관련 자격 목표를 준비할 때 활용할 수 있는 전공입니다.',benefits:['운동·건강·스포츠 이론의 체계적 학습','관련 자격의 전공학점 활용 검토','현업과 병행 가능한 학기별 구성'],outcomes:['체육학 학사학위 요건 충족','체육계열 편입·대학원 기반 마련','스포츠 분야 진로 확장 준비']},
+  'beauty.html':{group:'practical',why:'미용학은 현장 기술에 전공 이론과 학위를 더해 진학·교육·창업 등 다음 목표를 준비하는 과정입니다. 면허 기준은 학위요건과 따로 확인해야 합니다.',benefits:['헤어·피부·네일·메이크업 영역의 전공 구성','미용 경력과 학력의 연결','학위와 면허요건의 동시 점검'],outcomes:['미용학 학위요건 충족','미용 분야 진학·교육 기반 마련','종합미용면허 발급요건 검토']},
+  'beauty-license.html':{group:'practical',why:'종합미용면허증 과정은 단순 자격 수강이 아니라 본인의 학력과 미용 전공 이수내역이 실제 발급기준에 맞는지를 확인하는 과정입니다.',benefits:['면허 발급기준에 맞춘 전공 설계','기존 미용 과목과 경력 확인','학위 취득과 면허 준비의 순서 관리'],outcomes:['미용 전공 학위요건 준비','종합미용면허 발급요건 검토','창업·취업에 필요한 행정절차 확인']},
+  'healthy-family.html':{group:'care',why:'건강가정 과정은 가족복지·가족생활·상담 관련 과목을 목표 기준에 맞춰 갖추는 과정입니다. 사회복지·아동 관련 기존 과목을 활용할 여지가 있습니다.',benefits:['성적표 기준의 누락과목 확인','사회복지·아동 과목의 중복 활용 검토','필수과목을 일정에 맞춰 순차 이수'],outcomes:['건강가정 관련 필요과목 준비','가족복지·상담 분야 역량 보완','기존 이수과목의 효율적 활용']},
+  'liberal-arts.html':{group:'business',why:'교양과목은 총학점만 채우는 용도가 아니라 학위 요건의 교양 영역을 정확히 보완하는 과정입니다. 현재 학점구분을 먼저 확인해야 불필요한 수강을 줄일 수 있습니다.',benefits:['부족한 교양학점만 정확히 보완','전공·일반·교양 구분 오류 예방','개강 일정에 맞춘 빠른 과목 선택'],outcomes:['학위의 교양학점 요건 충족','부족 총학점의 효율적 보완','중복수강과 불필요한 비용 예방']},
+  'practicum.html':{group:'care',why:'실습·대면 과정은 지역, 개강일, 선이수과목과 기관 요건이 맞아야 진행할 수 있습니다. 이론과목보다 먼저 일정과 가능 여부를 잡아야 전체 계획이 흔들리지 않습니다.',benefits:['지역과 일정에 맞는 운영과정 확인','선이수과목과 기관요건 사전 점검','서류·출석·평가 일정을 한 번에 관리'],outcomes:['사회복지·보육 등 실습요건 준비','대면수업 일정의 안정적 이수','학위·자격 일정 지연 위험 감소']},
+  'private-certificates.html':{group:'business',why:'민간자격 과정은 이름보다 발급기관과 등록정보, 실제 활용처를 확인하고 선택해야 합니다. 전공 학습과 함께 필요한 실무 역량을 가볍게 보완할 수 있습니다.',benefits:['현재 운영 가능한 60종 과정 비교','발급기관·등록정보·시험방식 확인','관심 분야와 활용 목적에 맞춘 선택'],outcomes:['전공 외 관심 역량 보완','취업·이직 준비의 학습 경험 추가','짧은 과정부터 부담 없이 탐색']}
+};
+
+const fieldImages={
+  business:'/static/images/field-business.jpg',
+  care:'/static/images/field-care.jpg',
+  psychology:'/static/images/field-psychology.jpg',
+  technology:'/static/images/field-technology.jpg',
+  practical:'/static/images/field-practical.jpg'
+};
+
+const pathKey=location.pathname.split('/').pop()||'';
+const key=pathKey.endsWith('.html')?pathKey:`${pathKey}.html`;
+const c=courses[key]||courses['business.html'];
+const value=courseValue[key]||courseValue['business.html'];
 document.title=`${c.name} | 학점설계소`;
-document.querySelectorAll('[data-name]').forEach(x=>x.textContent=c.name);document.querySelector('[data-emoji]').textContent=c.emoji;document.querySelector('[data-sub]').textContent=c.sub;document.querySelector('[data-desc]').textContent=c.desc;document.querySelector('[data-point]').textContent=c.point;
-document.querySelector('[data-targets]').innerHTML=c.targets.map(v=>`<div class="check">✓ ${v}</div>`).join('');document.querySelector('[data-topics]').innerHTML=c.topics.map(v=>`<li>${v}</li>`).join('');
+document.querySelectorAll('[data-name]').forEach(x=>x.textContent=c.name);
+document.querySelector('[data-emoji]').textContent=c.emoji;
+document.querySelector('[data-sub]').textContent=c.sub;
+document.querySelector('[data-desc]').textContent=c.desc;
+document.querySelector('[data-point]').textContent=c.point;
+document.querySelector('[data-targets]').innerHTML=c.targets.map(v=>`<div class="check">✓ ${v}</div>`).join('');
+document.querySelector('[data-topics]').innerHTML=c.topics.map(v=>`<li>${v}</li>`).join('');
 
 const description=document.querySelector('meta[name="description"]');
-if(description)description.setAttribute('content',`${c.name} 과정 안내와 1:1 전담 담당자 배정, 체계적인 학습관리, 평일·주말 빠른 문제 대응`);
+if(description)description.setAttribute('content',`${c.name} 과정의 장점, 활용 목표와 1:1 전담 학습관리 안내`);
+
+const heroWrap=document.querySelector('.course-hero .wrap');
+if(heroWrap){
+  const copy=document.createElement('div');
+  copy.className='course-hero-copy';
+  [...heroWrap.children].forEach(child=>copy.appendChild(child));
+  heroWrap.appendChild(copy);
+  heroWrap.insertAdjacentHTML('beforeend',`
+    <figure class="course-visual">
+      <img src="${fieldImages[value.group]}" alt="${c.name} 분야를 학습하는 성인 학습자의 모습" width="1200" height="800">
+      <figcaption><strong>${c.name}</strong><span>목표에 맞춘 과정설계부터 학습관리까지</span></figcaption>
+    </figure>`);
+}
 
 const overview=document.querySelector('#overview');
 if(overview){
   overview.insertAdjacentHTML('beforebegin',`
+    <section class="section value-section" aria-labelledby="value-title">
+      <div class="wrap">
+        <div class="value-intro">
+          <div><span class="kicker">이 과정을 선택하는 이유</span><h2 id="value-title">${c.name}, 무엇이 좋아질까요?</h2></div>
+          <p>${value.why}</p>
+        </div>
+        <div class="value-grid">
+          ${value.benefits.map((item,index)=>`<article class="value-card"><span>0${index+1}</span><h3>${item}</h3></article>`).join('')}
+        </div>
+        <div class="outcome-panel">
+          <div><span class="kicker">과정 이후 기대할 수 있는 변화</span><h3>학위만 남는 것이 아니라<br>다음 목표로 이어집니다</h3></div>
+          <ul>${value.outcomes.map(item=>`<li>${item}</li>`).join('')}</ul>
+        </div>
+      </div>
+    </section>
     <section class="section care-highlight" aria-labelledby="care-title">
       <div class="wrap">
         <div class="title">
-          <span class="kicker">수강 시작부터 목표 달성까지</span>
-          <h2 id="care-title">${c.name} 과정도 1:1 전담 관리로 함께합니다</h2>
-          <p>과정만 안내하고 끝내지 않습니다. 처음 배정된 담당자가 학습 일정과 진행 상황을 꾸준히 확인합니다.</p>
+          <span class="kicker">왜 학점설계소에서 해야 할까요?</span>
+          <h2 id="care-title">${c.name} 과정도 혼자 두지 않습니다</h2>
+          <p>과정 선택부터 과제·시험·행정일정, 문제 해결까지 처음 배정된 담당자가 이어서 관리합니다.</p>
         </div>
         <div class="steps">
-          <div class="step"><b>1</b><h3>1:1 전담 담당자 배정</h3><p class="muted">학력, 보유학점과 목표를 파악한 한 명의 담당자가 과정 전반을 일관되게 안내합니다.</p></div>
-          <div class="step"><b>2</b><h3>체계적인 학습관리</h3><p class="muted">출석·과제·시험·행정신청과 과정별 필수 일정을 놓치지 않도록 단계별로 확인합니다.</p></div>
-          <div class="step"><b>3</b><h3>평일·주말 빠른 대응</h3><p class="muted">진행 중 궁금한 점이나 문제가 생기면 요일에 상관없이 확인하고 해결 방향을 빠르게 안내합니다.</p></div>
-          <div class="step"><b>4</b><h3>문제 해결까지 동행</h3><p class="muted">과목, 일정, 실습 등 예상치 못한 상황에도 다음 행동이 명확해질 때까지 함께 점검합니다.</p></div>
+          <div class="step"><b>1</b><h3>1:1 전담 담당자</h3><p class="muted">내 학력과 목표를 이해한 담당자 한 명이 과정 전반을 일관되게 안내합니다.</p></div>
+          <div class="step"><b>2</b><h3>실제 운영과정 우선</h3><p class="muted">가능해 보이는 이론이 아니라 현재 개설·운영 가능한 과목을 기준으로 계획합니다.</p></div>
+          <div class="step"><b>3</b><h3>체계적인 일정관리</h3><p class="muted">출석·과제·시험·행정신청과 과정별 필수 일정을 단계별로 확인합니다.</p></div>
+          <div class="step"><b>4</b><h3>평일·주말 빠른 대응</h3><p class="muted">문제가 생기면 요일과 상관없이 확인하고 다음 행동이 명확해질 때까지 함께 점검합니다.</p></div>
         </div>
       </div>
     </section>`);

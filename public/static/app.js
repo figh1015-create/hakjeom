@@ -486,8 +486,8 @@ function displaySimulatorResult(data) {
       <a href="/calculator" class="btn-primary text-sm">
         <i class="fas fa-calculator mr-1"></i>비용 상세 계산
       </a>
-      <a href="/majors" class="btn-secondary text-sm">
-        <i class="fas fa-book mr-1"></i>전공 가이드 보기
+      <a href="/#degree" class="btn-secondary text-sm">
+        <i class="fas fa-book mr-1"></i>운영 전공 보기
       </a>
     </div>
   `;

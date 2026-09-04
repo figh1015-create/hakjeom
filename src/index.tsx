@@ -25,12 +25,12 @@ app.get('/calculator', (c) => {
 
 // ─── Certificate Roadmap Page ─────────────────────────────
 app.get('/certificates', (c) => {
-  return c.html(renderLayout('certificates', '자격증 로드맵 DB | 학점설계소', renderCertificatesPage()))
+  return c.redirect('/#license', 301)
 })
 
 // ─── Major Guide Page ─────────────────────────────────────
 app.get('/majors', (c) => {
-  return c.html(renderLayout('majors', '전공별 완전 가이드 | 학점설계소', renderMajorsPage()))
+  return c.redirect('/#degree', 301)
 })
 
 // ─── Archive Page ─────────────────────────────────────────
@@ -239,11 +239,11 @@ function renderLayout(page: string, title: string, content: string): string {
         <a href="/calculator" class="nav-link ${page === 'calculator' ? 'nav-active' : ''}">
           <i class="fas fa-calculator mr-1"></i>비용계산기
         </a>
-        <a href="/certificates" class="nav-link ${page === 'certificates' ? 'nav-active' : ''}">
-          <i class="fas fa-certificate mr-1"></i>자격증DB
+        <a href="/#license" class="nav-link">
+          <i class="fas fa-certificate mr-1"></i>자격·실습과정
         </a>
-        <a href="/majors" class="nav-link ${page === 'majors' ? 'nav-active' : ''}">
-          <i class="fas fa-book mr-1"></i>전공가이드
+        <a href="/#degree" class="nav-link">
+          <i class="fas fa-book mr-1"></i>운영 전공
         </a>
         <a href="/archive" class="nav-link ${page === 'archive' ? 'nav-active' : ''}">
           <i class="fas fa-archive mr-1"></i>자료아카이브
@@ -265,8 +265,8 @@ function renderLayout(page: string, title: string, content: string): string {
     <div class="px-4 py-3 space-y-1">
       <a href="/simulator" class="mobile-nav-link">🗺️ 학습설계 시뮬레이터</a>
       <a href="/calculator" class="mobile-nav-link">🧮 비용 계산기</a>
-      <a href="/certificates" class="mobile-nav-link">🏅 자격증 로드맵 DB</a>
-      <a href="/majors" class="mobile-nav-link">📚 전공별 완전 가이드</a>
+      <a href="/#license" class="mobile-nav-link">🏅 자격·실습과정</a>
+      <a href="/#degree" class="mobile-nav-link">📚 운영 전공</a>
       <a href="/archive" class="mobile-nav-link">🗂️ 공식 자료 아카이브</a>
       <a href="/faq" class="mobile-nav-link">❓ FAQ</a>
     </div>
@@ -310,8 +310,8 @@ ${content}
         <ul class="space-y-2 text-sm">
           <li><a href="/simulator" class="hover:text-white transition">학습설계 시뮬레이터</a></li>
           <li><a href="/calculator" class="hover:text-white transition">비용 계산기</a></li>
-          <li><a href="/certificates" class="hover:text-white transition">자격증 로드맵 DB</a></li>
-          <li><a href="/majors" class="hover:text-white transition">전공별 완전 가이드</a></li>
+          <li><a href="/#license" class="hover:text-white transition">자격·실습과정</a></li>
+          <li><a href="/#degree" class="hover:text-white transition">운영 전공</a></li>
         </ul>
       </div>
       <div>
@@ -669,29 +669,29 @@ function renderSimulatorPage(): string {
               <option value="social_welfare">사회복지학</option>
               <option value="business">경영학</option>
               <option value="psychology">심리학</option>
-              <option value="korean_language">한국어교육학</option>
-              <option value="law">법학</option>
+              <option value="counseling">상담학</option>
+              <option value="theology">신학</option>
+              <option value="english_literature">영어영문학</option>
+              <option value="korean_language">한국어 과정</option>
+              <option value="youth">청소년학</option>
+              <option value="library_science">문헌정보학</option>
             </optgroup>
             <optgroup label="이공계">
               <option value="computer">컴퓨터공학</option>
-              <option value="information_security">정보보호학</option>
-              <option value="mechanical">기계공학</option>
+              <option value="information_processing">정보처리학</option>
               <option value="electrical">전기공학</option>
+              <option value="electronic">전자공학</option>
+              <option value="fire_safety">소방학</option>
             </optgroup>
             <optgroup label="교육·복지">
-              <option value="child_edu">유아교육학</option>
-              <option value="elementary_edu">초등교육학</option>
-              <option value="lifelong_edu">평생교육학</option>
-            </optgroup>
-            <optgroup label="의료·보건">
-              <option value="nursing">간호학</option>
-              <option value="health">보건학</option>
-              <option value="dental">치위생학</option>
+              <option value="childhood">아동학</option>
             </optgroup>
             <optgroup label="예술·체육">
-              <option value="sports">스포츠학</option>
-              <option value="arts">미술학</option>
-              <option value="music">음악학</option>
+              <option value="sports">체육학</option>
+              <option value="beauty">미용학</option>
+            </optgroup>
+            <optgroup label="공공·행정">
+              <option value="police_administration">경찰행정학</option>
             </optgroup>
           </select>
         </div>
@@ -713,8 +713,8 @@ function renderSimulatorPage(): string {
 
       <!-- Step 3: Certificates -->
       <div id="step3" class="step-content hidden">
-        <h2 class="text-2xl font-bold text-gray-900 mb-2">🏅 보유하거나 취득 예정인 자격증을 선택하세요</h2>
-        <p class="text-gray-500 mb-6 text-sm">학사과정 최대 3개, 전문학사 최대 2개까지 학점으로 인정됩니다</p>
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">🏅 이미 보유한 자격증이 있다면 선택하세요</h2>
+        <p class="text-gray-500 mb-6 text-sm">아래 목록은 판매 과정이 아닌 보유학점 확인용이며, 실제 인정 여부는 최신 기준으로 다시 확인합니다.</p>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="certGrid">
           ${[
@@ -725,13 +725,9 @@ function renderSimulatorPage(): string {
             { v: 'word_processor', label: '워드프로세서', credits: 14, dept: '사무행정', level: '국가기술' },
             { v: 'beauty', label: '미용사(일반)', credits: 20, dept: '미용학', level: '기사' },
             { v: 'cosmetology', label: '피부미용사', credits: 20, dept: '미용학', level: '기사' },
-            { v: 'cook', label: '조리기능사', credits: 16, dept: '식품조리', level: '기능사' },
-            { v: 'nurse_assistant', label: '간호조무사', credits: 14, dept: '간호학', level: '국가자격' },
             { v: 'sports_instructor', label: '생활스포츠지도사', credits: 20, dept: '스포츠학', level: '국가자격' },
             { v: 'fire_safety', label: '소방설비기사', credits: 18, dept: '소방방재학', level: '기사' },
             { v: 'electrical_engineer', label: '전기기사', credits: 20, dept: '전기공학', level: '기사' },
-            { v: 'civil_service', label: '공인중개사', credits: 6, dept: '법학·부동산', level: '국가자격' },
-            { v: 'mechanic', label: '자동차정비기사', credits: 18, dept: '기계공학', level: '기사' },
           ].map(cert => `
             <label class="cursor-pointer">
               <div class="cert-card flex items-center justify-between p-4 border-2 rounded-xl hover:border-primary hover:bg-blue-50 transition" 
